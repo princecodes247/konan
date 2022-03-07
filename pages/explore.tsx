@@ -3,6 +3,17 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import DashboardHeader from '../components/DashboardHeader'
+import ProjectCard from '../components/projectCard'
+import BottomPagination from '../components/BottomPagination'
+
+let projects = [
+
+    {
+        id: 1,
+        name: 'Earthen Bottle',
+        href: '#',
+    }
+]
 
 
 const Home: NextPage = () => {
@@ -17,11 +28,17 @@ const Home: NextPage = () => {
         <DashboardHeader/>
         <main>
           <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-            {/* Replace with your content */}
-            <div className="px-4 py-6 sm:px-0">
-              <div className="border-4 border-dashed border-gray-200 rounded-lg h-96" />
+          <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+            {projects.map((project) => (
+              <ProjectCard key={project.name}/>
+              
+            ))}
+          </div>
+            <div className="rounded-lg space-y-10 md:space-y-0 md:grid md:grid-cols-3 ">
+             
+             
             </div>
-            {/* /End replace */}
+            <BottomPagination/>
           </div>
         </main>
       <footer className={styles.footer}>

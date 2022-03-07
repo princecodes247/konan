@@ -20,7 +20,7 @@ const userNavigation = [
   { name: 'Sign out', href: '/' },
 ]
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
@@ -29,7 +29,7 @@ type HeaderProps = {
   
 }
 
-export default function DashboardHeader(props) {
+export default function DashboardHeader(props: HeaderProps) {
   return (
     <>
       
@@ -192,7 +192,7 @@ export default function DashboardHeader(props) {
           )}
         </Disclosure>
 
-        <header className="bg-white shadow">
+        <header className="bg-white shadow border-b-2">
           <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <h1 className="text-3xl font-bold text-gray-900">{props.title}</h1>
           </div>
