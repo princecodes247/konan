@@ -107,7 +107,7 @@ function Tabs() {
           ))}
         </Tab.List>
         <Tab.Panels className="mt-2">
-          {Object.values(categories).map((posts, idx) => (
+          {Object.values(categories).map((categorys, idx) => (
             <Tab.Panel
               key={idx}
               className={classNames(
@@ -116,21 +116,21 @@ function Tabs() {
               )}
             >
               <ul>
-                {posts.map((post) => (
+                {categorys.map((category) => (
                   <li
-                    key={post.id}
+                    key={category.id}
                     className="relative p-3 rounded-md hover:bg-coolGray-100"
                   >
                     <h3 className="text-sm font-medium leading-5">
-                      {post.title}
+                      {category.title}
                     </h3>
 
                     <ul className="flex mt-1 space-x-1 text-xs font-normal leading-4 text-coolGray-500">
-                      <li>{post.date}</li>
+                      <li>{category.date}</li>
                       <li>&middot;</li>
-                      <li>{post.commentCount} comments</li>
+                      <li>{category.commentCount} comments</li>
                       <li>&middot;</li>
-                      <li>{post.shareCount} shares</li>
+                      <li>{category.shareCount} shares</li>
                     </ul>
 
                     <a
@@ -186,47 +186,11 @@ const Dashboard: NextPage = () => {
       <DashboardHeader title="Dashboard" />
       <main>
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          <div className="bg-white overflow-hidden shadow rounded-lg mb-10">
-            <div className="px-4 py-5 sm:p-6">
-              <h3 className="text-lg leading-6 font-medium text-gray-900">
-                Your account is ready!
-              </h3>
-              <p className="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
-                You can now start using the app.
-              </p>
-              <div className="mt-6 grid grid-cols-1 row-gap-4 col-gap-4 sm:grid-cols-6">
-                <div className="sm:col-span-2">
-                  <div className="flex items-center justify-between">
-                    <div className="flex-shrink-0">
-                      <svg
-                        className="h-5 w-5 text-gray-400"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                    <div className="text-sm leading-5">
-                      <a
-                        href="#"
-                        className="font-medium text-indigo-600 hover:text-indigo-500 transition ease-in-out duration-150"
-                      >
-                        View profile
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          
 
-          <div className="">
-            <button>Explore Projects</button>
-            <button className="" onClick={() => setProjectModalOpen(true)}>
+          <div className="flex justify-end gap-4 mb-4">
+            <button className="px-4 py-2 rounded bg-white font-semibold text-gray-300 border border-4">Explore Projects</button>
+            <button className="px-4 py-2 rounded bg-blue-400 font-semibold text-white" onClick={() => setProjectModalOpen(true)}>
               Create a Project
             </button>
           </div>
@@ -260,7 +224,7 @@ const Dashboard: NextPage = () => {
                                     "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
                                     selected
                                       ? "bg-white shadow"
-                                      : "text-blue-200 hover:bg-white/[0.12] hover:text-white"
+                                      : "text-gray-500 hover:bg-white/[0.12] hover:text-gray-400"
                                   )
                                 }
                               >
@@ -273,7 +237,7 @@ const Dashboard: NextPage = () => {
                       <Tab.Panels className="mt-2">
                       <tbody className="bg-white divide-y divide-gray-200 w-full flex-1">
 
-                        {Object.values(categories).map((posts, idx) => (
+                        {Object.values(categories).map((categories, idx) => (
                           <Tab.Panel
                             key={idx}
                             className={classNames(
@@ -282,9 +246,9 @@ const Dashboard: NextPage = () => {
                             )}
                           >
                            
-                              {posts.map((post) => (
+                              {categories.map((category) => (
                                 <tr
-                                  key={post.id}
+                                  key={category.id}
                                   className="relative flex items-center justify-between p-3  hover:bg-coolGray-100 border-b border-gray-200"
                                 >
                                   <td className="px-6 py-4 whitespace-no-wrap">
@@ -294,7 +258,7 @@ const Dashboard: NextPage = () => {
                                       </div>
                                       <div className="ml-4">
                                         <div className="text-sm leading-5 font-medium text-gray-900">
-                                          {post.title}
+                                          {category.title}
                                         </div>
                                         <div className="text-sm leading-5 text-gray-500">
                                           Project Description

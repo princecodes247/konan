@@ -21,26 +21,26 @@ export default function ProjectCard() {
             <h1 className="title-font text-lg font-medium text-gray-900 mb-3">
               No Kid hungry
             </h1>
-            <p className="leading-relaxed mb-3">
+            <p className="leading-relaxed text-gray-500  mb-3 ">
               Children are hungry for food.
-              <br />
-              <br />
+              
               This is a story about how we can help.
 
             </p>
             <div className="desc flex flex-col">
-              <div className="flex items-center justify-between">
+              <div className="progressBar w-full border h-2 rounded">
+              <div
+                      className="progress_bar_inner bg-blue-500 h-full rounded"
+                      style={{ width: "50%" }}
+                    />
+              </div>
+              <div className="flex items-center justify-between text-xs text-gray-500">
                 <p>Raised: 1.3m</p>
                 <p>Target: 4.3m</p>
               </div>
-              <div className="flex items-center justify-between">
-                {/* A progress bar showing the progress made */}
-                <div className="progress-bar">
-                  <div className="progress-bar-inner" style={{ width: "50%" }} />
-                </div>
-              </div>
+              
               <div className="flex items-center justify-between mt-4">
-                <p>Until July 3rd</p>
+                <p className="text-sm text-gray-500">Until July 3rd</p>
                 <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
                     Donate
                 </button>

@@ -10,7 +10,16 @@ const Profile: NextPage = () => {
     <div>
       <DashboardHeader title="Profile"/>
     <main>
-      Profile
+      <div className="top flex p-4 bg-gray-400">
+        <div className="profilePic">SS</div>
+        <div className="profileName">
+          John Doe
+        </div>
+      </div>
+      <div className="profileStats">
+        Total Donations: 30ETHs
+        
+      </div>
     </main>
     </div>
   )

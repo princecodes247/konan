@@ -1,0 +1,14 @@
+query getProjects {
+  projects {
+    id
+    tag
+    title
+    type
+    target_amount
+    endDate
+    desc
+    current_amount
+    cover_img
+  }
+}
+
