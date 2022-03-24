@@ -1,7 +1,15 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
+import { useState } from 'react';
 
-export default function Example() {
+export default function BottomPagination(props: { fetching: any; error: any; data: string | any[]; }) {
+  
+  let pagesCount = 0;
+  const [pagesArray, setPagesArray] = useState([0]);
+  if(!props.fetching && !props.error) {
+    pagesCount = Math.ceil(props.data.length / 9)
+    setPagesArray(Array.from(Array(pagesCount).keys()))
+  }
   return (
     <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
       <div className="flex-1 flex justify-between sm:hidden">
@@ -22,13 +30,12 @@ export default function Example() {
         
         <div >
           <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-            <a
-              href="#"
+            <div
               className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
             >
               <span className="sr-only">Previous</span>
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-            </a>
+            </div>
             {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
             <a
               href="#"
