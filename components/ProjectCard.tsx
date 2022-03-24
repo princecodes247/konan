@@ -4,9 +4,9 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 
-export default function ProjectCard() {
+export default function ProjectCard(props) {
   return (
-    <Link href="/project/[id]" as="/project/1">
+    <Link href={`/project/${props.id}`} as={`/project/${props.id}`}>
       <div className="p-4 w-full group hover:opacity-95">
         <div className="h-full w-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
           <img
@@ -16,16 +16,13 @@ export default function ProjectCard() {
           />
           <div className="p-6">
             <h2 className="tracking-widest uppercase text-xs title-font font-medium text-gray-400 mb-1">
-              Children & Youth
+            {/* {props.category} */}
             </h2>
             <h1 className="title-font text-lg font-medium text-gray-900 mb-3">
-              No Kid hungry
+            {props.title}
             </h1>
             <p className="leading-relaxed text-gray-500  mb-3 ">
-              Children are hungry for food.
-              
-              This is a story about how we can help.
-
+            {props.desc}
             </p>
             <div className="desc flex flex-col">
               <div className="progressBar w-full border h-2 rounded">
@@ -35,8 +32,8 @@ export default function ProjectCard() {
                     />
               </div>
               <div className="flex items-center justify-between text-xs text-gray-500">
-                <p>Raised: 1.3m</p>
-                <p>Target: 4.3m</p>
+                <p>Raised: {props.current_amount}</p>
+                <p>Target: {props.target_amount}</p>
               </div>
               
               <div className="flex items-center justify-between mt-4">
