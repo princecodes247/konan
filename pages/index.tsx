@@ -8,6 +8,9 @@ import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import Link from "next/link";
+import Footer from "../components/Footer";
+import InfoJustified from "../components/InfoJustified";
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 const features = [
@@ -18,7 +21,7 @@ const features = [
     icon: GlobeAltIcon,
   },
   {
-    name: 'No hidden fees',
+    name: '100% Transparent',
     description:
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
     icon: ScaleIcon,
@@ -30,9 +33,9 @@ const features = [
     icon: LightningBoltIcon,
   },
   {
-    name: 'Mobile notifications',
+    name: 'M',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+      'Because Konan is completely blockchain-based, you will have complete access to your donation history and can track a single dollar as it moves from your digital wallet all the way to its final destination organization.',
     icon: AnnotationIcon,
   },
 ]
@@ -44,6 +47,7 @@ const navigation = [
 ]
 
 function Hero() {
+  const { loginWithRedirect } = useAuth0();
   return (
     <div className="relative bg-white h-screen overflow-hidden">
       <div className="max-w-7xl mx-auto">
@@ -82,11 +86,9 @@ function Hero() {
                     </a>
                   ))}
                   
-                  <Link href="/auth/login" passHref={true}>
-                    <span className="font-medium text-indigo-600 hover:text-indigo-500">
+                    <span className="font-medium text-indigo-600 hover:text-indigo-500" onClick={() => loginWithRedirect()}>
                     Log in
                     </span>
-                  </Link>
                 </div>
               </nav>
             </div>
@@ -141,13 +143,13 @@ function Hero() {
           <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
             <div className="sm:text-center lg:text-left">
               <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                <span className="block text-indigo-600 xl:inline">Decentralized</span>
+                <span className="block xl:inline">Give. Donate.</span>
                 {' '}
-                <span className="block xl:inline">Fund Raising</span>
+                <br />
+                <span className="block text-indigo-600 xl:inline">Change the World.</span>
               </h1>
               <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-                fugiat veniam occaecat fugiat aliqua.
+              Participate in crowdfunding and charity with the power of blockchain.
               </p>
               <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                 <div className="rounded-md shadow">
@@ -225,6 +227,7 @@ function FeaturesGrid(props: FeatureProps) {
 
 
 const Home: NextPage = () => {
+  
   return (
     <div className={styles.container}>
       <Head>
@@ -251,17 +254,21 @@ const Home: NextPage = () => {
         </section> */}
         <section className="px-16">
         
-          <FeaturesGrid title="About" heading="What we Do" desc="Stuf on stuffs" features={features}/>
+          <FeaturesGrid title="About" heading="What we Do" desc="Our open-source blockchain technology supports completely transparent and traceable transactions, allowing you to follow your money all the way to those in need." features={features}/>
         </section>
         <section>
         
-          <FeaturesGrid title="About" heading="What we Do" desc="Stuf on stuffs" features={features}/>
+          
         </section>
         <section>
-        <h2 className="text-3xl">Who can use Konan</h2>
+        
+        <FeaturesGrid title="How" heading="How to use Konan" desc="Contribute cryptocurrency to disaster and aid relief funds." features={features}/>
+        </section>
+        <section>
+          <InfoJustified/>
         </section>
       </main>
-      <footer>YO</footer>
+      <Footer />
     </div>
   );
 };
