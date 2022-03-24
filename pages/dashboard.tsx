@@ -223,7 +223,7 @@ const Dashboard: NextPage = () => {
                                     "w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg",
                                     "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
                                     selected
-                                      ? "bg-white shadow"
+                                      ? "bg-white shadow border border-gray-300"
                                       : "text-gray-500 hover:bg-white/[0.12] hover:text-gray-400"
                                   )
                                 }
@@ -234,14 +234,14 @@ const Dashboard: NextPage = () => {
                           </Tab.List>
                         </tr>
                       </thead>
-                      <Tab.Panels className="mt-2">
                       <tbody className="bg-white divide-y divide-gray-200 w-full flex-1">
+                      <Tab.Panels className="mt-2 w-full">
 
                         {Object.values(categories).map((categories, idx) => (
                           <Tab.Panel
                             key={idx}
                             className={classNames(
-                              "bg-white p-3",
+                              "bg-white w-full p-3",
                              
                             )}
                           >
@@ -280,8 +280,8 @@ const Dashboard: NextPage = () => {
                               ))}
                           </Tab.Panel>
                         ))}
-                        </tbody>
                       </Tab.Panels>
+                        </tbody>
                     </Tab.Group>
                   </table>
                 </div>
