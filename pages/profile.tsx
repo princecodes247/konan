@@ -9,7 +9,11 @@ const Profile: NextPage = () => {
     <div>
       <DashboardHeader title="Profile" />
       <main>
-        <div className="top flex p-4 bg-gray-200 flex-col sm:flex-row sm:p-10 items-center gap-6">
+        <div className="top flex p-4 bg-gray-200 h-44 flex-col sm:flex-row sm:p-10 items-center gap-6">
+        
+          
+        </div>
+        <div className="relative -mt-16 flex p-4 flex-col sm:flex-row sm:p-10 items-center gap-6">
           <div className="profilePic w-40 h-40 rounded-full border border-gray-700">
             
           </div>
