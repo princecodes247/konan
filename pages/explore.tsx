@@ -9,30 +9,8 @@ import ProjectCard from "../components/ProjectCard";
 import { useQuery } from "urql";
 import Footer from "../components/Footer";
 import { Key, ReactChild, ReactFragment, ReactPortal } from "react";
-
-let GetProjectsQuery = `
-query getProjects {
-  projects {
-    id
-    tag
-    title
-    type
-    target_amount
-    endDate
-    desc
-    current_amount
-    cover_img
-  }
-}
-`;
-
-let GetProjectByIdQuery = `
-query getProjectById($id: uuid = "") {
-  projects_by_pk(id: $id) {
-    id
-  }
-}
-`
+// import { GetProjectsQuery } from "../generated/graphql";
+import {GetProjectsQuery} from "../services/queries";
 
 let ExploreGrid = (props: { fetching: any; error: { message: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined; }; data: { projects: { id: any; title: any; desc: any; current_amount: any; target_amount: any; }[]; }; }) => {
 
@@ -83,11 +61,11 @@ const Explore: NextPage = () => {
       </Head>
 
       <DashboardHeader title="Explore Projects" />
-      <main className="h-4/6">
-        <div className="max-w-7xl h-4/5 mx-auto py-6 sm:px-6 lg:px-8">
+      <main className="min-h-lg">
+        <div className="max-w-7xl  mx-auto py-6 sm:px-6 lg:px-8">
           <ExploreGrid data={data} fetching={fetching} error={error}/>
           <div className="rounded-lg space-y-10 md:space-y-0 md:grid md:grid-cols-3 "></div>
-          <BottomPagination data={data} fetching={fetching} error={error} />
+          {/* <BottomPagination data={data} fetching={fetching} error={error} /> */}
         </div>
       </main>
       <Footer />
