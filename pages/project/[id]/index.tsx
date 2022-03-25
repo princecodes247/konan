@@ -4,7 +4,10 @@ import DetailsGrid from "../../../components/DetailsGrid";
 import AvatarSet from "../../../components/AvatarSet";
 import DonateModal from "../../../components/DonateModal";
 import SelectBox from "../../../components/SelectBox";
-import { Fragment, useState } from 'react'
+import { Fragment, useState } from "react";
+// import { GetProjectByIdQuery } from "../../../generated/graphql";
+import { GetProjectByIdQuery } from "../../../services/queries";
+import { useQuery } from "urql";
 
 const features = [
   {
@@ -23,48 +26,41 @@ const features = [
     description: () =>
       "To reduce the number of malnourished children around the world",
   },
-  { name: "Dimensions", description: () => '6.25" x 3.55" x 1.15"' },
-  {
-    name: "Finish",
-    description: () => "Hand sanded and finished with natural oil",
-  },
-  { name: "Includes", description: () => "Wood card tray and 3 refill packs" },
-  {
-    name: "Considerations",
-    description: () =>
-      "Made from natural materials. Grain and color vary with each item.",
-  },
+  { name: "Deadline", description: () => "May 2010" },
 ];
 
 const paymentOptions = [
-  { name: 'ETH' ,
-    desc: "Ethereum",
-},
-  { name: 'BNB' ,
-    desc: "Binance Coin",
-},
-  { name: 'SOL' ,
-    desc: "Solana",
-},
-]
-
-
+  { name: "ETH", desc: "Ethereum" },
+  { name: "BNB", desc: "Binance Coin" },
+  { name: "SOL", desc: "Solana" },
+];
 
 export default function Project() {
+  const [result, reexecuteQuery] = useQuery({
+    query: GetProjectByIdQuery,
+    variables: { id: "d1c1f4aa-4cbb-40e6-af78-62508770e1c8" },
+  });
+  const { data, fetching, error } = result;
+  let [currency, setCurrency] = useState(paymentOptions[0]);
 
-  let [currency, setCurrency] = useState(paymentOptions[0])
+  if (fetching) return <div>
+  <p className="text-2xl text-gray-600">Loading...</p>
+
+</div>;
+if (error) return <div className="h-3/4 w-full flex items-center justify-center">
+  <p className="text-2xl text-gray-600">Oh no... {error.message}</p>
+</div>;
+
   return (
     <main>
-      <DashboardHeader title="No Hungry Kid" />
+      {console.log(data)}
+      <DashboardHeader title={data.projects_by_pk.title} />
       <div className="flex flex-col">
         <div className="bg-white">
           <div className="max-w-2xl mx-auto py-24 px-4 pt-4 grid items-center grid-cols-1 gap-y-16 gap-x-8 sm:px-6 sm:py-2 lg:max-w-7xl lg:px-8 lg:grid-cols-2">
             <div>
               {/* <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">Details</h2> */}
-              <p className="mt-4 text-gray-500">
-                Children are hungry for food. They love to eat and they love to
-                eat healthy. This is a story about how we can help.
-              </p>
+              <p className="mt-4 text-gray-500">{data.projects_by_pk.desc}</p>
               <div className="desc_side">
                 <div className="desc_progress my-4 ">
                   <div className="progress_bar bg-gray-300 w-full h-3 rounded overflow-hidden">
@@ -79,7 +75,9 @@ export default function Project() {
                   </div>
                 </div>
                 <div className="desc_donate">
-                  <p className="text-gray-500">How much would you like to donate?</p>
+                  <p className="text-gray-500">
+                    How much would you like to donate?
+                  </p>
                   <div className="flex items-end gap-2 mb-4">
                     <div className="flex-1">
                       <div className="relative ">
@@ -98,7 +96,7 @@ export default function Project() {
                       </div>
                     </div>
                     <div className="">
-                      <SelectBox options={paymentOptions} callback={setCurrency}/>
+                      {/* <SelectBox options={paymentOptions} callback={setCurrency}/> */}
                     </div>
 
                     <div className="">
@@ -111,9 +109,17 @@ export default function Project() {
 
                   <DonateModal />
                 </div>
-                <div className="acceptedCrypto text-gray-500">
+                <div className="flex gap-8 text-gray-500">
                   <div className="">Ethereum</div>
                   <div className="">Binance Smart Chain</div>
+                </div>
+                <div className="shareLink my-4">
+                  <div className="flex items-center gap-2 mb-4">
+                    <p className="text-gray-500">Share this project</p>
+                    <button className="inline-flex text-black bg-gray-200 border-0 py-2 px-6 focus:outline-none hover:bg-gray-300 rounded text-lg border">
+                      Share
+                    </button>
+                  </div>
                 </div>
               </div>
               <dl className="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8">
