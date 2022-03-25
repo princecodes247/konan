@@ -1,4 +1,3 @@
-
 /*
 This is an example snippet - you should consider tailoring it
 to your service.
@@ -7,19 +6,19 @@ Note: we only handle the first operation here
 */
 
 async function fetchGraphQL(
-    operationsDoc: string,
-    operationName: string,
-    variables: Record<string, any>
-  ) {
-    return fetch('https://konan.hasura.app/v1/graphql', {
-      method: 'POST',
-      body: JSON.stringify({
-        query: operationsDoc,
-        variables,
-        operationName,
-      }),
-    }).then(result => result.json());
-  }
+  operationsDoc: string,
+  operationName: string,
+  variables: Record<string, any>
+) {
+  return fetch("https://konan.hasura.app/v1/graphql", {
+    method: "POST",
+    body: JSON.stringify({
+      query: operationsDoc,
+      variables,
+      operationName,
+    }),
+  }).then((result) => result.json());
+}
 /*
 This is an example snippet - you should consider tailoring it
 to your service.
@@ -37,11 +36,11 @@ to your service.
 //         })
 //       }
 //     );
-  
+
 //     return await result.json();
 //   }
-  
-  const operationsDoc = `
+
+const operationsDoc = `
     query getProjects {
       projects {
         id
@@ -69,52 +68,116 @@ to your service.
       }
     }
   `;
-  
-  function fetchGetProjects() {
-    return fetchGraphQL(
-      operationsDoc,
-      "getProjects",
-      {}
-    );
+
+function fetchGetProjects() {
+  return fetchGraphQL(operationsDoc, "getProjects", {});
+}
+
+function executeAddProject(
+  desc: any,
+  mission: any,
+  owner: any,
+  payment_address: any,
+  tag: any,
+  target_amount: any,
+  title: any,
+  cover_img: any
+) {
+  return fetchGraphQL(operationsDoc, "addProject", {
+    desc: desc,
+    mission: mission,
+    owner: owner,
+    payment_address: payment_address,
+    tag: tag,
+    target_amount: target_amount,
+    title: title,
+    cover_img: cover_img,
+  });
+}
+
+async function startFetchGetProjects() {
+  const { errors, data } = await fetchGetProjects();
+
+  if (errors) {
+    // handle those errors like a pro
+    console.error(errors);
   }
-  
-  function executeAddProject(desc: any, mission: any, owner: any, payment_address: any, tag: any, target_amount: any, title: any, cover_img: any) {
-    return fetchGraphQL(
-      operationsDoc,
-      "addProject",
-      {"desc": desc, "mission": mission, "owner": owner, "payment_address": payment_address, "tag": tag, "target_amount": target_amount, "title": title, "cover_img": cover_img}
-    );
-  }
-  
-  async function startFetchGetProjects() {
-    const { errors, data } = await fetchGetProjects();
-  
-    if (errors) {
-      // handle those errors like a pro
-      console.error(errors);
-    }
-  
-    // do something great with this precious data
-    console.log(data);
-  }
-  
+
+  // do something great with this precious data
+  console.log(data);
+}
+
 //   startFetchGetProjects();
-  
-  async function startExecuteAddProject(desc: any, mission: any, owner: any, payment_address: any, tag: any, target_amount: any, title: any, cover_img: any) {
-    const { errors, data } = await executeAddProject(desc, mission, owner, payment_address, tag, target_amount, title, cover_img);
-  
-    if (errors) {
-      // handle those errors like a pro
-      console.error(errors);
-    }
-  
-    // do something great with this precious data
-    console.log(data);
+
+async function startExecuteAddProject(
+  desc: any,
+  mission: any,
+  owner: any,
+  payment_address: any,
+  tag: any,
+  target_amount: any,
+  title: any,
+  cover_img: any
+) {
+  const { errors, data } = await executeAddProject(
+    desc,
+    mission,
+    owner,
+    payment_address,
+    tag,
+    target_amount,
+    title,
+    cover_img
+  );
+
+  if (errors) {
+    // handle those errors like a pro
+    console.error(errors);
   }
-  
+
+  // do something great with this precious data
+  console.log(data);
+}
+
 //   startExecuteAddProject(desc, mission, owner, payment_address, tag, target_amount, title, cover_img);
 
-  export {
-      startFetchGetProjects,
-      startExecuteAddProject,
+// export { startFetchGetProjects, startExecuteAddProject };
+
+const GetProjectsQuery = `
+query getProjects {
+  projects {
+    id
+    tag
+    title
+    type
+    target_amount
+    endDate
+    desc
+    current_amount
+    cover_img
   }
+}
+`
+
+const GetProjectByIdQuery = `
+query getProjectById($id: uuid!) {
+  projects_by_pk(id: $id) {
+    id
+    tag
+    title
+    type
+    target_amount
+    endDate
+    desc
+    current_amount
+    cover_img
+  }
+}
+`
+
+const queries ={
+  GetProjectsQuery,
+  GetProjectByIdQuery,
+};
+
+export {GetProjectsQuery, GetProjectByIdQuery};
