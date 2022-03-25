@@ -6,6 +6,7 @@ import DashboardHeader from "../components/DashboardHeader";
 import CreateProjectModal from "../components/CreateProjectModal";
 import { useState } from "react";
 import { Tab } from "@headlessui/react";
+import Link from "next/link";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -189,7 +190,9 @@ const Dashboard: NextPage = () => {
           
 
           <div className="flex justify-end gap-4 mb-4">
-            <button className="px-4 py-2 rounded bg-white font-semibold text-gray-300 border border-4">Explore Projects</button>
+            <Link href="/explore">
+              <button className="px-4 py-2 rounded bg-white font-semibold text-gray-300 border border-4">Explore Projects</button>
+            </Link>
             <button className="px-4 py-2 rounded bg-blue-400 font-semibold text-white" onClick={() => setProjectModalOpen(true)}>
               Create a Project
             </button>

@@ -53,7 +53,7 @@ function CreateProjectModal(props: props) {
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
+            <div className="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl w-full">
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
                   <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
@@ -62,15 +62,15 @@ function CreateProjectModal(props: props) {
                       aria-hidden="true"
                     />
                   </div>
-                  <div className="mt-3 w-full text-center sm:mt-0 sm:ml-4 sm:text-left">
+                  <div className="mt-3 w-full sm:mt-0 sm:ml-4 text-left">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg leading-6 font-medium text-gray-900"
+                      className="text-lg leading-6 font-medium text-gray-900 text-center sm:text-left"
                     >
                       Create a new project
                     </Dialog.Title>
                     <div className="mt-2 ">
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-500 text-center sm:text-left mb-6">
                         Start your donation or crowdfunding project
                       </p>
                       {pageCount == 0 ? <div className="grid grid-cols-3 w-full gap-6">
