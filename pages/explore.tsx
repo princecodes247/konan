@@ -36,8 +36,8 @@ let ExploreGrid = (props: { fetching: any; error: { message: boolean | ReactChil
         id={project.id}
         title={project.title}
         desc={project.desc}
-        current_amount={project.current_amount}
-        target_amount={project.target_amount}
+        currentAmount={project.current_amount}
+        targetAmount={project.target_amount}
       />
     )
   )}

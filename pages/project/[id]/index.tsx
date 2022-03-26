@@ -8,6 +8,7 @@ import { Fragment, useState } from "react";
 // import { GetProjectByIdQuery } from "../../../generated/graphql";
 import { GetProjectByIdQuery } from "../../../services/queries";
 import { useQuery } from "urql";
+import ProgressBar from "../../../components/ProgressBar";
 
 const features = [
   {
@@ -36,21 +37,70 @@ const paymentOptions = [
 ];
 
 export default function Project() {
+  // const [donateModalOpen, setDonateModalOpen] = useState(false);
+  const [features, setFeatures] = useState([
+    {
+      name: "Contributors",
+      description: () => {
+        return (
+          <>
+            <AvatarSet />
+            <p>0 others have contributed to the project.</p>
+          </>
+        );
+      },
+    },
+  ]);
   const [result, reexecuteQuery] = useQuery({
     query: GetProjectByIdQuery,
     variables: { id: "d1c1f4aa-4cbb-40e6-af78-62508770e1c8" },
   });
   const { data, fetching, error } = result;
+  data.project = data?.project?.projects_by_pk
+  const updateFeatures = (features: any) => {
+    let contributors: { name: string; description: () => JSX.Element } = {
+      name: "Contributors",
+      description: () => {
+        return (
+          <>
+            <AvatarSet />
+            <p>
+              +
+              {features.contributors.length > 5
+                ? features.contributors.length - 5
+                : features.contributors.length}{" "}
+              others have contributed to the project.
+            </p>
+          </>
+        );
+      },
+    };
+    let mission = {
+      name: "Mission",
+      description: () =>
+        features.mission,
+    };
+    let deadline = { name: "Deadline", description: () => features.deadline };
+
+    setFeatures([contributors, mission, deadline]);
+  };
+
   let [currency, setCurrency] = useState(paymentOptions[0]);
 
-  if (fetching) return <div>
-  <p className="text-2xl text-gray-600">Loading...</p>
-
-</div>;
-if (error) return <div className="h-3/4 w-full flex items-center justify-center">
-  <p className="text-2xl text-gray-600">Oh no... {error.message}</p>
-</div>;
-
+  if (fetching)
+    return (
+      <div>
+        <p className="text-2xl text-gray-600">Loading...</p>
+      </div>
+    );
+  if (error)
+    return (
+      <div className="h-3/4 w-full flex items-center justify-center">
+        <p className="text-2xl text-gray-600">Oh no... {error.message}</p>
+      </div>
+    );
+    console.log(data.project)
+      // updateFeatures(data.project);
   return (
     <main>
       {console.log(data)}
@@ -62,18 +112,10 @@ if (error) return <div className="h-3/4 w-full flex items-center justify-center"
               {/* <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">Details</h2> */}
               <p className="mt-4 text-gray-500">{data.projects_by_pk.desc}</p>
               <div className="desc_side">
-                <div className="desc_progress my-4 ">
-                  <div className="progress_bar bg-gray-300 w-full h-3 rounded overflow-hidden">
-                    <div
-                      className="progress_bar_inner bg-blue-500 h-3 rounded"
-                      style={{ width: "50%" }}
-                    />
-                  </div>
-                  <div className="progress_details flex justify-between items-center text-xs text-gray-500 mb-4">
-                    <p>Raised: 1.3m</p>
-                    <p>Target: 4.3m</p>
-                  </div>
-                </div>
+                <ProgressBar
+                  currentAmount={data.projects_by_pk.current_amount}
+                  targetAmount={data.projects_by_pk.target_amount}
+                />
                 <div className="desc_donate">
                   <p className="text-gray-500">
                     How much would you like to donate?
@@ -82,13 +124,13 @@ if (error) return <div className="h-3/4 w-full flex items-center justify-center"
                     <div className="flex-1">
                       <div className="relative ">
                         <label
-                          htmlFor="email"
+                          htmlFor="amount"
                           className="leading-7 text-sm text-gray-600"
                         >
                           Amount in {currency.name}
                         </label>
                         <input
-                          type="amount"
+                          type="number"
                           id="amount"
                           name="amount"
                           className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
@@ -109,10 +151,10 @@ if (error) return <div className="h-3/4 w-full flex items-center justify-center"
 
                   <DonateModal />
                 </div>
-                <div className="flex gap-8 text-gray-500">
+                {/* <div className="flex gap-8 text-gray-500">
                   <div className="">Ethereum</div>
                   <div className="">Binance Smart Chain</div>
-                </div>
+                </div> */}
                 <div className="shareLink my-4">
                   <div className="flex items-center gap-2 mb-4">
                     <p className="text-gray-500">Share this project</p>

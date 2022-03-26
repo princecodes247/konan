@@ -1,10 +1,11 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from "react";
+import { Fragment, ReactChild, ReactFragment, ReactPortal } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import Link from "next/link";
+import ProgressBar from "./ProgressBar";
 
-export default function ProjectCard(props) {
+export default function ProjectCard(props: { id: any; title: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined; desc: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined; currentAmount: any; targetAmount: any; }) {
   return (
     <Link href={`/project/${props.id}`} as={`/project/${props.id}`}>
       <div className="p-4 w-full group hover:opacity-95">
@@ -25,16 +26,7 @@ export default function ProjectCard(props) {
             {props.desc}
             </p>
             <div className="desc flex flex-col">
-              <div className="progressBar w-full border h-2 rounded">
-              <div
-                      className="progress_bar_inner bg-blue-500 h-full rounded"
-                      style={{ width: "50%" }}
-                    />
-              </div>
-              <div className="flex items-center justify-between text-xs text-gray-500">
-                <p>Raised: {props.current_amount}</p>
-                <p>Target: {props.target_amount}</p>
-              </div>
+              <ProgressBar currentAmount={props.currentAmount} targetAmount={props.targetAmount}/>
               
               <div className="flex items-center justify-between mt-4">
                 <p className="text-sm text-gray-500">Until July 3rd</p>
